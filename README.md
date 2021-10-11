@@ -46,14 +46,14 @@ The control flow graph for the parse tree above looks like this.
 
  Each block has a list of its statements.
 ```
-printNode(cfg.blocks[0].statements[0])
+console.log(printNode(cfg.blocks[0].statements[0]));  // printNode returns a string
 ```
 prints `x, y = 0, 0`.
 
 The methods `cfg.getSuccessors` and `cfg.getPredecessors` allow the edges to be followed forward or backward.
 ```
 const cond = cfg.getSuccessors(cfg.entry)[0];
-printNode(cond)
+console.log(printNode(cond.statements[0]));
 ```
 prints `x < 10`.
 
@@ -63,7 +63,7 @@ The library also provides basic def-use program analysis, namely, tracking where
 
 ```
 const analyzer = new DataflowAnalyzer();
-const flows = analyzer.analyze(cfg).flows;
+const flows = analyzer.analyze(cfg).dataflows;
 for (let flow of flows.items) 
     console.log(printNode(flow.fromNode) + 
         " -----> " + printNode(flow.toNode))
